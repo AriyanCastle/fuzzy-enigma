@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { Configuration, OpenAIApi } from 'openai';
 
 const generateSummary = async (conversation: string): Promise<string> => {
-  const prompt = `请根据以下提供的中文医生与患者之间的对话内容，总结成point form：\n${conversation}\n总结：（一个重点一行）`;
+  const prompt = `請將對話內容總結成point form：\n${conversation}\n总结：（一个重点一行）`;
 
   // Initialize OpenAI API with the API key
   const configuration = new Configuration({
