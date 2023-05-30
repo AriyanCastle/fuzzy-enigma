@@ -5,6 +5,7 @@ import { auth } from "../lib/firebase";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import SignIn from "../components/SignIn";
 import { saveUserData } from '../lib/dbHelpers';
+import { User } from '@firebase/auth';
 
 const TranscriptionPage: React.FC = () => {
   const {
@@ -29,7 +30,8 @@ const TranscriptionPage: React.FC = () => {
   const [summary, setSummary] = useState<string>('');
   const [clinicalHistory, setClinicalHistory] = useState<string>('');
   const [editedSummary, setEditedSummary] = useState<string>('');
-  const [user, setUser] = useState<firebase.User | null>(null);
+  //const [user, setUser] = useState<firebase.User | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
 
   const signInWithGoogle = async () => {
