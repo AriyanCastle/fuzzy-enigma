@@ -1,0 +1,45 @@
+import React from 'react';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from '../lib/firebase';
+
+const SignIn: React.FC = () => {
+  const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      console.error('Error signing in with Google:', error);
+    }
+  };
+
+  const signInContainerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '100vh',
+    textAlign: 'center',
+    gap: '20px', // Add a gap between child elements
+  };
+
+  const signInButtonStyle = {
+    backgroundColor: '#4285f4',
+    color: 'white',
+    padding: '10px 20px',
+    borderRadius: '4px',
+    border: 'none',
+    fontSize: '16px',
+    cursor: 'pointer',
+  };
+
+  return (
+    <div style={signInContainerStyle}>
+      <h2>中醫語音病歷輔助系統，請先註冊後使用？</h2>
+      <button onClick={signInWithGoogle} style={signInButtonStyle}>
+        Sign In with Google
+      </button>
+    </div>
+  );
+};
+
+export default SignIn;

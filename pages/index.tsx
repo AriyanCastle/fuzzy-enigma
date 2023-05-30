@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useWhisper } from '@chengsokdara/use-whisper';
 import { fetchSummary, fetchClinicalHistory } from '../utils/apiHelpers';
+import { auth } from "../lib/firebase";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import SignIn from "../components/SignIn";
 
 const TranscriptionPage: React.FC = () => {
   const {
@@ -25,8 +28,26 @@ const TranscriptionPage: React.FC = () => {
   const [summary, setSummary] = useState<string>('');
   const [clinicalHistory, setClinicalHistory] = useState<string>('');
   const [editedSummary, setEditedSummary] = useState<string>('');
+  const [user, setUser] = useState<firebase.User | null>(null);
 
 
+  const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      setUser(result.user);
+    } catch (error) {
+      console.log("Error signing in:", error);
+    }
+  };
+  
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+  
   const toggleRecording = () => {
     if (isRecording) {
       stopRecording();
@@ -65,7 +86,10 @@ const TranscriptionPage: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+  <div className="container mx-auto px-4 py-8">
+    {!user ? (
+      <SignIn signInWithGoogle={signInWithGoogle} />
+    ) : (
       <div className="flex flex-col">
         <div className="flex justify-center mb-6">
           <button
@@ -114,7 +138,7 @@ const TranscriptionPage: React.FC = () => {
         >
           {loadingClinicalHistory ? '病史生成中...' : '生成病史，需要將內容放入對話重點框'}
         </button>
-  
+
         {clinicalHistory && (
           <div>
             <h3 className="font-bold text-lg mb-4">病史:</h3>
@@ -124,8 +148,8 @@ const TranscriptionPage: React.FC = () => {
           </div>
         )}
       </div>
-    </div>
-  );
-};
-
-export default TranscriptionPage;
+    )}
+  </div>
+);
+}
+export default TranscriptionPage; 
