@@ -1,0 +1,6 @@
+.next/cache/webpack/client-development/
+.next/cache/webpack/client-development-fallback/
+.next/cache/webpack/server-development/
+.next/cache/webpack/edge-server-development/
+node_modules/
+.DS_Store
