@@ -4,6 +4,7 @@ import { fetchSummary, fetchClinicalHistory } from '../utils/apiHelpers';
 import { auth } from "../lib/firebase";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import SignIn from "../components/SignIn";
+import { saveUserData } from '../lib/dbHelpers';
 
 const TranscriptionPage: React.FC = () => {
   const {
@@ -48,6 +49,28 @@ const TranscriptionPage: React.FC = () => {
     return () => unsubscribe();
   }, []);
   
+  
+  const handleSaveData = async () => {
+    if (user) {
+      const userId = user.uid;
+      const inputForClinicalHistory = editedSummary;
+      const voiceRecording = recording;
+      const transcribedText = transcript.text;
+      const summaryData = summary;
+      const clinicalHistoryData = clinicalHistory;
+      await saveUserData(
+        userId,
+        inputForClinicalHistory,
+        voiceRecording,
+        transcribedText,
+        summaryData,
+        clinicalHistoryData
+      );
+    } else {
+      console.error('User not signed in');
+    }
+  };
+  
   const toggleRecording = () => {
     if (isRecording) {
       stopRecording();
@@ -79,6 +102,7 @@ const TranscriptionPage: React.FC = () => {
     if (typeof editedSummary === 'string') {
       const generatedClinicalHistory = await fetchClinicalHistory(editedSummary);
       setClinicalHistory(generatedClinicalHistory);
+      await handleSaveData(); // Automatically save data after generating clinical history
     } else {
       console.error('Error: editedSummary is not a string');
     }
