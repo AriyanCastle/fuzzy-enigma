@@ -57,7 +57,7 @@ const TranscriptionPage: React.FC = () => {
       const userId = user.uid;
       const inputForClinicalHistory = editedSummary;
       const voiceRecording = recording;
-      const transcribedText = transcript.text;
+      const transcribedText = typeof transcript.text !== 'undefined' ? transcript.text : '';
       const summaryData = summary;
       const clinicalHistoryData = clinicalHistory;
       await saveUserData(
