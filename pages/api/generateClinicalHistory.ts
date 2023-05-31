@@ -11,7 +11,7 @@ const generateClinicalHistory = async (summary: string): Promise<string> => {
 
   // API call to OpenAI
   const response = await openai.createChatCompletion({
-    model: 'gpt-4',
+    model: 'gpt-3.5-turbo',
     messages: [
       { role: 'system', content: initialPrompt },
       { role: 'user', content: summary },
