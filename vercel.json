@@ -1,9 +1,9 @@
 {
     "functions": {
-      "api/generateClinicalHistory.js": {
+      "pages/api/generateClinicalHistory.js": {
         "maxDuration": 30
       },
-      "api/generateSummary.js": {
+      "pages/api/generateSummary.js": {
         "maxDuration": 30
       }
     }
