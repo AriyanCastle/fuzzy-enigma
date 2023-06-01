@@ -1,0 +1,10 @@
+{
+    "functions": {
+      "api/generateClinicalHistory.js": {
+        "maxDuration": 30
+      },
+      "api/generateSummary.js": {
+        "maxDuration": 30
+      }
+    }
+  }
