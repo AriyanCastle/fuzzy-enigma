@@ -41,7 +41,7 @@ export async function fetchClinicalHistoryStream(summary: string, onTokenReceive
           resolve(tokens.join(''));
           return;
         }
-      
+
         tokens.push(value);
         onTokenReceived(value); // Call the callback with the received token
         return this.read().then(processText.bind(this));
@@ -55,7 +55,7 @@ export async function fetchClinicalHistoryStream(summary: string, onTokenReceive
     throw error;
   }
 };
-  
+
 export async function fetchClinicalHistory(summary: string): Promise<string> {
   try {
     const response = await fetch('/api/generateClinicalHistory', {

@@ -1,10 +1,10 @@
 {
-    "functions": {
-      "pages/api/generateClinicalHistory.js": {
-        "maxDuration": 30
-      },
-      "pages/api/generateSummary.js": {
-        "maxDuration": 30
-      }
+  "functions": {
+    "pages/api/generateClinicalHistory.js": {
+      "maxDuration": 30
+    },
+    "pages/api/generateSummary.js": {
+      "maxDuration": 30
     }
   }
+}

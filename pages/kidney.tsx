@@ -40,13 +40,13 @@ const TranscriptionPage: React.FC = () => {
   const handleSummaryChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setEditedSummary(event.target.value);
   };
-  
+
 
   const displayToken = (token: string) => {
     // Assuming "clinicalHistory" is a state variable containing the displayed text
     setClinicalHistory((prevClinicalHistory) => prevClinicalHistory + token);
   };
-  
+
   const handleGenerateSummary = async () => {
     if (typeof transcript.text === 'string') {
       const generatedSummary = await fetchSummary(transcript.text);
@@ -71,9 +71,8 @@ const TranscriptionPage: React.FC = () => {
       <div className="flex flex-col">
         <div className="flex justify-center mb-6">
           <button
-            className={`${
-              isRecording ? "bg-red-600" : "bg-blue-600"
-            } text-white py-2 px-6 rounded focus:outline-none`}
+            className={`${isRecording ? "bg-red-600" : "bg-blue-600"
+              } text-white py-2 px-6 rounded focus:outline-none`}
             onClick={toggleRecording}
           >
             {isRecording ? "停止转录" : "转录对话"}
